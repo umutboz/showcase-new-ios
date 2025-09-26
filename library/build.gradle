@@ -1,0 +1,57 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android' // Kotlin derleyici ayarlarını alması için ekle
+
+group = 'uk.co.samuelwall'
+version rootProject.versionName
+
+android {
+    namespace "com.agesa.showcase_new"
+    compileSdk rootProject.compileSdkVersion
+    // buildToolsVersion = rootProject.buildToolsVersion // KALDIR
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        version "1.0.0"
+    }
+
+    buildTypes {
+        debug { testCoverageEnabled true }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions { abortOnError false }
+    testOptions.unitTests.includeAndroidResources true
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+configurations { javadocCompile }
+
+dependencies {
+    implementation 'androidx.annotation:annotation:[1.1.0,)'
+    testImplementation 'androidx.test:core:1.7.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:[2.2.0,)'
+    compileOnly 'androidx.fragment:fragment:[1.1.0,)'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation 'androidx.fragment:fragment-testing:1.3.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.7.2'
+    testImplementation 'org.robolectric:robolectric:4.6'
+    testImplementation 'org.mockito:mockito-core:3.11.2'
+
+    javadocCompile 'androidx.annotation:annotation:1.1.0'
+    javadocCompile 'androidx.fragment:fragment:1.2.5'
+
+    // (Eğer Kotlin kodu yoksa şart değil; varsa stdlib tek artefakt)
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+apply from: 'nexus.gradle'
